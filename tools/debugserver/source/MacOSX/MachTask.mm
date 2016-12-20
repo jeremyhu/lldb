@@ -24,6 +24,7 @@
 #import <sys/sysctl.h>
 
 #if defined(__APPLE__)
+#include <Availability.h>
 #include <pthread.h>
 #include <sched.h>
 #endif
@@ -429,7 +430,7 @@ profile_data_stream << "wired:" << vminfo.wire_count * pagesize << ';';
 profile_data_stream << "active:" << vminfo.active_count * pagesize << ';';
 profile_data_stream << "inactive:" << vminfo.inactive_count * pagesize << ';';
  */
-#if defined(HOST_VM_INFO64_COUNT)
+#if defined(HOST_VM_INFO64_COUNT) && (!defined(__APPLE__) || __MAC_OS_X_VERSION_MAX_ALLOWED >= 1090)
       // This mimicks Activity Monitor.
       uint64_t total_used_count =
           (physical_memory / pagesize) -
