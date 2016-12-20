@@ -138,6 +138,12 @@ function(add_lldb_executable name)
                                DEPENDS ${name}
                                COMPONENT ${name})
     endif()
+  else()
+    if(ARG_GENERATE_INSTALL)
+      install(TARGETS ${name}
+            COMPONENT ${name}
+            RUNTIME DESTINATION ${install_dir})
+    endif()
   endif()
 
   if(ARG_INCLUDE_IN_FRAMEWORK AND LLDB_BUILD_FRAMEWORK)
