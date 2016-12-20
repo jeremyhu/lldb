@@ -134,6 +134,12 @@ function(add_lldb_executable name)
                                 -DCMAKE_INSTALL_COMPONENT=${name}
                                 -P "${CMAKE_BINARY_DIR}/cmake_install.cmake")
     endif()
+  else()
+    if(ARG_GENERATE_INSTALL)
+      install(TARGETS ${name}
+            COMPONENT ${name}
+            RUNTIME DESTINATION ${install_dir})
+    endif()
   endif()
 
   if(ARG_INCLUDE_IN_FRAMEWORK AND LLDB_BUILD_FRAMEWORK)
