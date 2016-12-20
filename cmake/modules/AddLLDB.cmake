@@ -128,6 +128,12 @@ function(add_lldb_executable name)
                                DEPENDS ${name}
                                COMPONENT ${name})
     endif()
+  else()
+    if(ARG_GENERATE_INSTALL)
+      install(TARGETS ${name}
+            COMPONENT ${name}
+            RUNTIME DESTINATION ${install_dir})
+    endif()
   endif()
 endfunction(add_lldb_executable)
 
